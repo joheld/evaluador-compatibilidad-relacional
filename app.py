@@ -36,7 +36,7 @@ if st.button("Generar Analisis", type="primary"):
                 "Content-Type": "application/json"
             }
             payload = {
-                "model": "llama-2-70b-chat",
+                "model": "sonar",
                 "messages": [
                     {"role": "user", "content": prompt}
                 ]
