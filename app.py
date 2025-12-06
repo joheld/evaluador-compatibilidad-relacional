@@ -7,8 +7,8 @@ st.set_page_config(page_title="Evaluador de Compatibilidad Relacional", layout="
 
 try:
     genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-    model = genai.GenerativeModel("gemini-1.5-pro")
-except Exception as e:
+    model = genai.GenerativeModel("gemini-1.5-flash")except Exception as e:
+        
     st.error(f"Error: {e}")
     st.stop()
 
