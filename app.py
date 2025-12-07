@@ -7,14 +7,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# ====== CONFIGURACIÓN API PERPLEXITY ======
 try:
     api_key = st.secrets["PERPLEXITY_API_KEY"]
 except Exception as e:
     st.error(f"Error al cargar la API key: {e}")
     st.stop()
 
-# ====== ESTILO GENERAL ======
 st.markdown(
     """
     <style>
@@ -27,6 +25,7 @@ st.markdown(
     .fortaleza {background-color: #e8f7f1; color: #333;}
     .mejora {background-color: #fff4e5; color: #333;}
     .recomendacion {background-color: #e8f0ff; color: #333;}
+    .cientifico {background-color: #f5f5f5; color: #1a1a1a; border-left: 4px solid #666;}
     .compat-box {
         padding: 1.5rem;
         border-radius: 1rem;
@@ -55,7 +54,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ====== LAYOUT PRINCIPAL ======
 st.title("💛 Evaluador de Compatibilidad Relacional")
 st.markdown(
     "Sistema Científico Predictivo V3.0 · Basado en investigación con más de 11,000 parejas."
@@ -74,7 +72,6 @@ with st.sidebar:
 
 st.header("📏 Cuéntanos tu historia")
 
-# Instrucción general
 st.markdown(
     """
     <div class="info-box">
@@ -96,7 +93,7 @@ with col_p1:
     persona1 = st.text_area(
         "Sobre ti",
         height=180,
-        placeholder="Ejemplo: Soy contador, organised y responsable. Valoro la estabilidad y la honestidad. En relaciones anteriores, noté que necesito mucha comunicación clara. Me da ansiedad la incertidumbre. Me encanta planar el futuro. Soy introvertido pero leal con mis cercanos."
+        placeholder="Ejemplo: Soy contador, organisé y responsable. Valoro la estabilidad y la honestidad. En relaciones anteriores, noté que necesito mucha comunicación clara. Me da ansiedad la incertidumbre. Me encanta planear el futuro. Soy introvertido pero leal con mis cercanos."
     )
 with col_p2:
     persona2 = st.text_area(
@@ -108,7 +105,7 @@ with col_p2:
 relacion = st.text_area(
     "Sobre su relación",
     height=180,
-    placeholder="Ejemplo: Llevamos 3 años. Nos atrae mucho, nos divertimos. Lo mejor es que nos hacemos reír. Lo retador: él necesita estructura, ella espontaneidad. A veces hay conflictos sobre planes. Ella teme que él sea demasiado rigido. Él siente que ella no es seria. Pero somos muy leales."
+    placeholder="Ejemplo: Llevamos 3 años. Nos atrae mucho, nos divertimos. Lo mejor es que nos hacemos reír. Lo retador: él necesita estructura, ella espontaneidad. A veces hay conflictos sobre planes. Ella teme que él sea demasiado rígido. Él siente que ella no es seria. Pero somos muy leales."
 )
 
 if st.button("✨ Generar análisis", type="primary"):
@@ -129,7 +126,8 @@ Responde UNICAMENTE con un JSON válido, sin explicación extra, con esta estruc
   "compatibilidad": <número 0-100>,  
   "fortalezas": ["fortaleza 1", "fortaleza 2", "fortaleza 3", "fortaleza 4"],
   "areas_mejora": ["area 1", "area 2", "area 3"],
-  "recomendaciones": ["recomendación 1", "recomendación 2", "recomendación 3", "recomendación 4"]
+  "recomendaciones": ["recomendación 1", "recomendación 2", "recomendación 3", "recomendación 4"],
+  "analisis_cientifico": "Análisis directo, sin filtros, sobre: posibles conflictos inherentes, diferencias fundamentales no negociables, dinámicas psicológicas probématicas, patrones de comportamiento que causan fricción, riesgos realistas a largo plazo, incompatibilidades cruzadas. Habla con franqueza científica, sin adornos ni lenguaje suavizante."
 }}
 
 Se muy específico y fundamenta el número de compatibilidad en los detalles dados.
@@ -162,6 +160,7 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                         fortalezas = data.get("fortalezas", [])
                         areas_mejora = data.get("areas_mejora", [])
                         recomendaciones = data.get("recomendaciones", [])
+                        analisis_cientifico = data.get("analisis_cientifico", "")
 
                         # ====== SECCIÓN COMPATIBILIDAD ======
                         st.subheader("❤️ Nivel de compatibilidad")
@@ -241,6 +240,22 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                                 )
                         else:
                             st.markdown("_No se generaron recomendaciones específicas._")
+
+                        st.markdown("---")
+
+                        # ====== ANÁLISIS CIENTÍFICO (SIN FILTROS) ======
+                        st.subheader("🔌 Análisis Científico (Sin filtros)")
+                        if analisis_cientifico:
+                            st.markdown(
+                                f"""
+                                <div class="result-card cientifico">
+                                    {analisis_cientifico}
+                                </div>
+                                """,
+                                unsafe_allow_html=True,
+                            )
+                        else:
+                            st.markdown("_No se generó análisis científico._")
 
                     except json.JSONDecodeError:
                         st.warning("La respuesta no vino en JSON válido. Se muestra el texto bruto:")
