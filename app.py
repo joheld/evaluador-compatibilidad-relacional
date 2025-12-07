@@ -266,4 +266,4 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
 
             except requests.exceptions.RequestException as e:
                 st.error(f"Error al conectar con Perplexity API: {str(e)}")
-Auto Collect
+
