@@ -154,8 +154,7 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                     raw_content = result["choices"][0]["message"]["content"]
 
                     try:
-                                                            data = json.loads(raw_content)
-                        
+                        data = json.loads(raw_content)
 
                         compatibilidad = data.get("compatibilidad")
                         fortalezas = data.get("fortalezas", [])
@@ -267,3 +266,4 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
 
             except requests.exceptions.RequestException as e:
                 st.error(f"Error al conectar con Perplexity API: {str(e)}")
+Auto Collect
