@@ -22,10 +22,11 @@ st.markdown(
         padding: 1rem 1.25rem;
         border-radius: 0.8rem;
         margin-bottom: 0.8rem;
+        color: #333;
     }
-    .fortaleza {background-color: #e8f7f1;}
-    .mejora {background-color: #fff4e5;}
-    .recomendacion {background-color: #e8f0ff;}
+    .fortaleza {background-color: #e8f7f1; color: #333;}
+    .mejora {background-color: #fff4e5; color: #333;}
+    .recomendacion {background-color: #e8f0ff; color: #333;}
     .compat-box {
         padding: 1.5rem;
         border-radius: 1rem;
