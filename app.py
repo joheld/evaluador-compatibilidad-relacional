@@ -154,8 +154,7 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                     raw_content = result["choices"][0]["message"]["content"]
 
                     try:
-                                    raw_content = raw_content[raw_content.find('{'):raw_content.rfind('}')+1]
-                        data = json.loads(raw_content)
+                                                            data = json.loads(raw_content)
                         
 
                         compatibilidad = data.get("compatibilidad")
