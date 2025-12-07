@@ -42,6 +42,14 @@ st.markdown(
         font-size: 1rem;
         opacity: 0.9;
     }
+    .info-box {
+        background-color: #e8f4f8;
+        border-left: 4px solid #0084d4;
+        padding: 12px 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        color: #333;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -66,16 +74,41 @@ with st.sidebar:
 
 st.header("📏 Cuéntanos tu historia")
 
+# Instrucción general
+st.markdown(
+    """
+    <div class="info-box">
+    <b>Para un análisis más preciso, incluye:</b>
+    <ul style="margin-bottom: 0; margin-top: 8px;">
+    <li>Rasgos de personalidad más importantes</li>
+    <li>Valores fundamentales (qué es importante para ti)</li>
+    <li>Expectativas relacionales y comunicación</li>
+    <li>Experiencias relevantes en relaciones anteriores</li>
+    <li>Miedos o inseguridades clave</li>
+    </ul>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 col_p1, col_p2 = st.columns(2)
 with col_p1:
-    persona1 = st.text_area("Sobre ti", height=150, placeholder="Describe tu historia, rasgos, miedos, deseos…")
+    persona1 = st.text_area(
+        "Sobre ti",
+        height=180,
+        placeholder="Ejemplo: Soy contador, organised y responsable. Valoro la estabilidad y la honestidad. En relaciones anteriores, noté que necesito mucha comunicación clara. Me da ansiedad la incertidumbre. Me encanta planar el futuro. Soy introvertido pero leal con mis cercanos."
+    )
 with col_p2:
-    persona2 = st.text_area("Sobre tu pareja", height=150, placeholder="Describe su personalidad, estilo de comunicación, etc.")
+    persona2 = st.text_area(
+        "Sobre tu pareja",
+        height=180,
+        placeholder="Ejemplo: Es artista, creativa y auténtica. Muy social, valora la libertad y la espontaneidad. Es emocional y expresa bien sus sentimientos. A veces es desorganizada. Aprecia la flexibilidad en planes. Tiene miedos de sentirse atrapada. Es añadosa con familia y amigos."
+    )
 
 relacion = st.text_area(
     "Sobre su relación",
-    height=150,
-    placeholder="¿Cómo se conocieron? ¿Qué es lo mejor y lo más retador de la relación?"
+    height=180,
+    placeholder="Ejemplo: Llevamos 3 años. Nos atrae mucho, nos divertimos. Lo mejor es que nos hacemos reír. Lo retador: él necesita estructura, ella espontaneidad. A veces hay conflictos sobre planes. Ella teme que él sea demasiado rigido. Él siente que ella no es seria. Pero somos muy leales."
 )
 
 if st.button("✨ Generar análisis", type="primary"):
@@ -84,20 +117,22 @@ if st.button("✨ Generar análisis", type="primary"):
     else:
         with st.spinner("Analizando compatibilidad emocional y relacional…"):
             prompt = f"""
-Eres un psicólogo experto en relaciones de pareja.
+Eres un psicólogo experto en relaciones de pareja con formación en teorías de compatibilidad relacional.
 
-Analiza esta información:
+Analiza esta información de una pareja:
 PERSONA 1: {persona1}
 PERSONA 2: {persona2}
 RELACIÓN: {relacion}
 
-Responde ÚUICAmENTE con un JSON válido, sin explicación extra, con esta estructura exacta:
+Responde UNICAMENTE con un JSON válido, sin explicación extra, con esta estructura:
 {{
-  "compatibilidad": 0-100,
-  "fortalezas": ["texto 1", "texto 2", "..."],
-  "areas_mejora": ["texto 1", "texto 2", "..."],
-  "recomendaciones": ["texto 1", "texto 2", "..."]
+  "compatibilidad": <número 0-100>,  
+  "fortalezas": ["fortaleza 1", "fortaleza 2", "fortaleza 3", "fortaleza 4"],
+  "areas_mejora": ["area 1", "area 2", "area 3"],
+  "recomendaciones": ["recomendación 1", "recomendación 2", "recomendación 3", "recomendación 4"]
 }}
+
+Se muy específico y fundamenta el número de compatibilidad en los detalles dados.
 """
 
             url = "https://api.perplexity.ai/chat/completions"
