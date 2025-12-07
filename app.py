@@ -154,7 +154,13 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                     raw_content = result["choices"][0]["message"]["content"]
 
                     try:
+                                    # Extraer JSON de bloques markdown si es necesario
+            if '```' in raw_content:
+                start = raw_content.find('{')
+                end = raw_content.rfind('}') + 1
+                raw_content = raw_content[start:end]
                         data = json.loads(raw_content)
+                        
 
                         compatibilidad = data.get("compatibilidad")
                         fortalezas = data.get("fortalezas", [])
