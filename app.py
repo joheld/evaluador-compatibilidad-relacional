@@ -154,7 +154,7 @@ Se muy específico y fundamenta el número de compatibilidad en los detalles dad
                     raw_content = result["choices"][0]["message"]["content"]
 
                     try:
-            if '```' in raw_content:
+                if '```' in raw_content:
                 start = raw_content.find('{')
                 end = raw_content.rfind('}') + 1
                 raw_content = raw_content[start:end]
